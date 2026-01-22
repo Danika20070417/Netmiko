@@ -19,8 +19,24 @@ def fajlbeolvasas():
     return szoveg
 
 
+#Milyen IOS verzió fut a kapcsolón?
+
+def ios_verzio(verzio_info):
+    elso_sor = verzio_info.split("\n")[0]
+    
+    r = elso_sor.split(",")
+    
+    verzio = r[1].strip().split(" ")[2].lstrip("(").rstrip(")")
+    verzio += " " + r[2].strip().lstrip("Version")
+    
+    return verzio
+
+
 # Hány Ethernet interface van a kapcsolón?
 
+def ethernet_interfacek_szama():
+    pass
+    
 
 
 ###############################################################################
@@ -40,5 +56,8 @@ kapcsolo = {
 #print(output)
 
 verzio_info = fajlbeolvasas()
+#print(verzio_info)
 
-print(verzio_info)
+print(f"IOS verzió {ios_verzio(verzio_info)}")
+
+print(f"{ethernet_interfacek_szama()} Ethernet interface van a kapcsolón.")
