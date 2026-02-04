@@ -16,6 +16,18 @@ def set_enable_pwd(ssh):
     jelszo = input("Add meg az új enable jelszót!: ")
     ssh.send_config_set(f"enable password {jelszo}")
 
+def ser_pass_enc(ssh):
+    ssh.send_config_set("service password-encryption")
+
+def banner(ssh):
+    ssh.send_config_set("banner motd -Jogosulatlanul bejelentkezni tilos!-")
+    
+def rapid_pvst(ssh):
+    ssh.send_config_set("spanning-tree mode rapid-pvst")
+
+def ment_fajl(ssh):
+    pass
+    
 
 
 
@@ -43,6 +55,21 @@ try:
         set_enable_pwd(kapcsolat)
         
         print(kapcsolat.send_command("show running-config | include enable"))
+        
+        #5.f
+        ser_pass_enc(kapcsolat)
+        
+        #6.f
+        banner(kapcsolat)
+        
+        print(kapcsolat.send_command("show running-config | include password"))
+        print(kapcsolat.send_command("show running-config | include secret"))
+        
+        #7.f
+        rapid_pvst(kapcsolat)
+        
+        #8.f
+        ment_fajl(kapcsolat)
         
 
 except Exception as ex:
