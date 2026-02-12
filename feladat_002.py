@@ -57,18 +57,42 @@ def kon_pass_csere(ssh):
 
 def int_typ_db(ssh):
     
-    interfaces = ""
-    
     interfaces = ssh.send_command("sh run | inc int")
     
-    teszt = interfaces.strip().split(' ')[1]
+    interfaces = interfaces.strip().split('\n')
     
-    teszt2 = []
+    lista = []
     
-    for i in range(len(teszt)):
-        teszt2.append(teszt[i].strip().split('\n')[0])
+    for szo in interfaces:
+        lista.append(szo.strip().split(' ')[1])
     
-    print(teszt2)
+    lista2 = []
+    
+    for per in lista:
+        lista2.append(per.strip().split('/')[0])
+    
+    lista3 = []
+    
+    for ut in lista2:
+        lista3.append(ut[:-1])
+    
+    lista4 =  []
+    
+    for elem in lista3:
+        if "Ethernet" in elem:
+            lista4.append(elem)
+    
+    db = 0
+    internev = lista4[0]
+    
+    for i in range(len(lista4)):
+        if lista4[i] == internev:
+            db += 1
+        else:
+            internev = lista4[i]
+            db = 1
+    
+    print(internev, db)
 
 try:
     with ConnectHandler(**login_adatok) as kapcsolat:
