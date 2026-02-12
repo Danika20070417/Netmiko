@@ -61,24 +61,14 @@ def int_typ_db(ssh):
     
     interfaces = ssh.send_command("sh run | inc int")
     
-    teszt = interfaces.strip().split(' ')
+    teszt = interfaces.strip().split(' ')[1]
     
     teszt2 = []
     
     for i in range(len(teszt)):
         teszt2.append(teszt[i].strip().split('\n')[0])
     
-    dbg = 0
-    dbf = 0
-    
-    for i in range(len(teszt2)):
-        if "GigabitEthernet" in teszt2[i]:
-            dbg += 1
-        if "FastEthernet" in teszt2[i]:
-            dbf += 1
-    
-    print(f"{dbg} GigabitEthernet interfész van")
-    print(f"{dbf} FastEthernet interfész van")
+    print(teszt2)
 
 try:
     with ConnectHandler(**login_adatok) as kapcsolat:

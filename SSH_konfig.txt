@@ -13,3 +13,4 @@ username dani priv 15 pass netmiko2026
 line vty 0 15
 tran input ssh
 login local
+exit
