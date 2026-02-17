@@ -10,7 +10,7 @@ def kon_pass():
     ell = []
     
     for sor in szoveg:
-        lista.append(sor.strip())
+        lista.append(sor.strip().split('\n'))
     
     for i in range(len(lista)):
         if "password" in lista[i]:
