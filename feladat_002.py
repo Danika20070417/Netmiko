@@ -22,30 +22,19 @@ def vlanok(ssh):
     ssh.send_config_set(vlan)
 
 def kon_pass(ssh):
-    '''
-    line= ""
     
-    line = ssh.send_command("sh run | section line con 0")
+    try:
+        with open("konzol.txt", encoding="utf-8") as fajl:
+            szoveg = fajl.readlines()
+    except IOError as ex:
+        print(ex)
     
-    line = line.strip().split('\n')
+    print(szoveg)
     
     lista = []
     
-    for i in range(1, len(line)):
-        lista.append(line[i].strip().split(' '))
-        
-    print(lista)
     
-    for i in range(len(lista)):
-        if lista[i] == "password":
-            if lista[i] == "login":
-                print("Konzol jelszó és hitelesítés beállítása OK!")
-            else:
-                print("Nincs be állítva a login parancs így nem kéri a jelszót bejelentkezéskor")
-        else:
-            print("Nincs megadva jelszó")
-            
-    '''
+    
 
 def kon_pass_csere(ssh):
     
