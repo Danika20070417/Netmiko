@@ -6,3 +6,4 @@ Egyszer volt, hol nem volt...
 
 1. Egyszerű csatlakozás és promt lekérdezés: simple.py
 2. Biztonságos csatlakozás és show: secu_show.py
+3. Egyszerű lekérdezések, beállítások
