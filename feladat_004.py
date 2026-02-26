@@ -1,10 +1,11 @@
 from netmiko import ConnectHandler
+from getpass import getpass
 
 kapcsolo = {
     "device_type": "cisco_ios",
     "host": "192.168.40.174",
     "username": "dani",
-    "password": "netmiko2026"
+    "password": getpass()
 }
 
 try:
@@ -70,6 +71,8 @@ try:
         output = kapcsolat.send_multiline_timing(["copy run tftp", tftp_ip, fajlnev])
         
         
+        cli_out = kapcsolat.check_enable_mode()
+        print(f"{cli_out}")
 
 except Exception as ex:
     print(f"Hiba: {ex}")
