@@ -46,31 +46,29 @@ try:
                 
                     kapcsolat.send_config_set(["line vty 0 15" , f"password {ujjelszo3}"])
                     
-        user = kapcsolat.send_command("sh run | inc username")
-        user1 = user.strip().split(" ")
-        user = user.strip().split('\n')
-        print(user, user1)
-        
-        for i in user:
-            user = i.split(' ')[-1]
-        print(user)
+        ena = kapcsolat.send_command("show run")
+        if "username" in ena:
+            val = kapcsolat.send_command("show run | include username").split('\n')
+            print(val)
             
-        if len(user1[-1]) < 8:
-            ujjelszo4 = input("Adj meg egy legalább 8 karakterből álló jelszót: ")
-                    
-            while len(ujjelszo4) < 8:
-                ujjelszo4 = input("Adj meg egy legalább 8 karakterből álló jelszót: ")
-                    
-                    
-                    
-            kapcsolat.send_config_set(f"{ujjelszo4}")
+            for felh in val:
+                if len(felh.split(' ')[-1]) < 8:
+                    print(f"A {felh.split(' ')[1]} felhasználó jelszava nem megfelelő hosszúságú.")
+                    usejelszo = input("Adj meg egy legalább 8 karakter hosszú jelszót: ")
+                    while len(usejelszo) < 8:
+                        usejelszo = input("Adj meg egy legalább 8 KARAKTER HOSSZÚ jelszót!: ")
+                    osszerakott = ''
+                    for szo in felh.split(' ')[:-2]:
+                        osszerakott += szo + ' '
+                    kapcsolat.send_config_set(f"{osszerakott}{usejelszo}")
+                    print("A jelszó beállítása megtörtént.(°_,°)")
         
-        '''
+        
         tftp_ip = input("Add meg a szerver IP-címét:")
         fajlnev = input("Mentendő konfig fájl neve:")
         
         output = kapcsolat.send_multiline_timing(["copy run tftp", tftp_ip, fajlnev])
-        '''
+        
         
 
 except Exception as ex:
