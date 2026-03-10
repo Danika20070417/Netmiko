@@ -57,6 +57,7 @@ try:
         
         valami = kapcsolat.send_command("show run | sec interface").strip().split('\n')
         alint = []
+        intid = []
         
         for i in range(len(valami)):
             if "interface" in valami[i] and "." in valami[i]:
@@ -64,8 +65,24 @@ try:
         
         for i in range(len(alint)):
             mas = kapcsolat.send_command(f"show run | sec {alint[i]}")
+            lista = mas.strip().split('\n')
         
-            print(mas)
+            for j in range(len(lista)):
+                if "encapsulation" in lista[j] and "native" not in lista[j]:
+                    intid.append(lista[j].split(' ')[-1])
+        
+        kesz = []
+        
+        print("Alinterface ID                   VLAN ID")
+        print("----------------------------------------------")
+        
+        for i in range(len(alint)):
+            for j in range(len(intid)):
+                if alint[i] not in kesz and intid[j] not in kesz:
+                    kesz.append(alint[i])
+                    kesz.append(intid[j])
+                    print(f"{alint[i]}              {intid[j]}")
+             
         
 except Exception as ex:
     print(ex)
